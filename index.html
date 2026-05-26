@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Mobix — Premium Phones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">E-Mobix</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('phones')" id="nav-phones">Phones</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('login')" id="nav-login">Login</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="showPage('cart')">
+      🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ========== HOME PAGE ========== -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-tag">New Arrivals 2026</div>
+    <h1>The Future<br>of <span>Mobile</span><br>Is Here</h1>
+    <p>Discover the latest smartphones with cutting-edge technology, stunning displays, and cameras that redefine photography.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('phones')">Shop Now</button>
+      <button class="btn-outline" onclick="showPage('about')">Learn More</button>
+    </div>
+    <div class="hero-phone">📱</div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Blazing Fast</h3>
+      <p>All phones feature the latest processors for unmatched performance in gaming, multitasking, and productivity.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📸</div>
+      <h3>Pro Camera Systems</h3>
+      <p>From 200MP sensors to advanced AI photography, capture every moment in stunning detail.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔋</div>
+      <h3>All-Day Battery</h3>
+      <p>Massive batteries with 100W fast charging so you're never tethered to a wall outlet again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>2-Year Warranty</h3>
+      <p>Every phone comes with full manufacturer warranty and our 30-day money-back guarantee.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚚</div>
+      <h3>Free Shipping</h3>
+      <p>Free express delivery on all orders over $199. Same-day delivery available in select cities.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Our expert team is always ready to help you find the perfect phone or solve any issue.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ========== PHONES PAGE ========== -->
+<div class="page" id="page-phones">
+  <div class="page-header">
+    <h1>All Phones</h1>
+    <p>Browse our full collection of premium smartphones</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterPhones('all', this)">All</button>
+    <button class="filter-btn" onclick="filterPhones('apple', this)">Apple</button>
+    <button class="filter-btn" onclick="filterPhones('samsung', this)">Samsung</button>
+    <button class="filter-btn" onclick="filterPhones('google', this)">Google</button>
+    <button class="filter-btn" onclick="filterPhones('xiaomi', this)">Xiaomi</button>
+    <button class="filter-btn" onclick="filterPhones('oneplus', this)">OnePlus</button>
+  </div>
+
+  <div class="phones-grid" id="phones-grid"></div>
+</div>
+
+<!-- ========== LOGIN PAGE ========== -->
+<div class="page" id="page-login">
+  <div class="auth-page">
+    <div class="auth-card" id="login-card">
+      <h2>Welcome Back</h2>
+      <p>Sign in to your E-Mobix account</p>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com" id="login-email">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" id="login-password">
+      </div>
+
+      <button class="btn-primary" style="width:100%; margin-top:8px" onclick="handleLogin()">Sign In</button>
+
+      <div class="auth-switch">
+        Don't have an account? <span onclick="showRegister()">Create one</span>
+      </div>
+    </div>
+
+    <div class="auth-card" id="register-card" style="display:none">
+      <h2>Create Account</h2>
+      <p>Join E-Mobix and start shopping</p>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="John Smith" id="reg-name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com" id="reg-email">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" id="reg-password">
+      </div>
+
+      <button class="btn-primary" style="width:100%; margin-top:8px" onclick="handleRegister()">Create Account</button>
+
+      <div class="auth-switch">
+        Already have an account? <span onclick="showLogin()">Sign in</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CART PAGE ========== -->
+<div class="page" id="page-cart">
+  <div class="cart-page">
+    <h1>Your Cart</h1>
+    <div id="cart-content"></div>
+  </div>
+</div>
+
+<!-- ========== CHECKOUT PAGE ========== -->
+<div class="page" id="page-checkout">
+  <div class="checkout-page">
+    <h1>Checkout</h1>
+
+    <div class="step-indicators">
+      <div class="step active">
+        <div class="step-num">1</div>
+        <span>Shipping</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step active">
+        <div class="step-num">2</div>
+        <span>Payment</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <span>Confirm</span>
+      </div>
+    </div>
+
+    <div class="checkout-layout">
+      <div>
+        <!-- Shipping -->
+        <div class="checkout-form-card" style="margin-bottom:24px">
+          <h3>Shipping Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="John">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+1 (555) 000-0000">
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" placeholder="123 Main Street">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" placeholder="New York">
+            </div>
+            <div class="form-group">
+              <label>Zip Code</label>
+              <input type="text" placeholder="10001">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <select>
+              <option>United States</option>
+              <option>United Kingdom</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>Cambodia</option>
+              <option>Singapore</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-form-card">
+          <h3>Payment Details</h3>
+          <div class="form-group">
+            <label>Card Number</label>
+            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="card-number">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="text" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" placeholder="123" maxlength="3">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Cardholder Name</label>
+            <input type="text" placeholder="John Smith">
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items"></div>
+          <div style="margin-top:20px">
+            <div class="summary-row">
+              <span style="color:var(--muted)">Subtotal</span>
+              <span id="checkout-subtotal">$0</span>
+            </div>
+            <div class="summary-row">
+              <span style="color:var(--muted)">Shipping</span>
+              <span style="color:#4ecca3">Free</span>
+            </div>
+            <div class="summary-row">
+              <span style="color:var(--muted)">Tax (8%)</span>
+              <span id="checkout-tax">$0</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span id="checkout-total">$0</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%; margin-top:24px; padding:16px" onclick="placeOrder()">
+            Place Order
+          </button>
+          <p style="text-align:center; font-size:12px; color:var(--muted); margin-top:12px">
+            🔒 Secured by SSL encryption
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SUCCESS PAGE ========== -->
+<div class="page" id="page-success">
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h2>Order Placed!</h2>
+      <p>Thank you for your purchase! Your order has been confirmed and will be delivered within 3-5 business days. A confirmation email has been sent to you.</p>
+      <button class="btn-primary" onclick="showPage('phones')">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ABOUT PAGE ========== -->
+<div class="page" id="page-about">
+  <div class="about-page">
+    <div class="about-hero">
+      <div>
+        <h1>We Are <span>E-Mobix</span></h1>
+        <p style="margin-bottom:16px">Founded in 2020, E-Mobix has been committed to bringing the world's best smartphones directly to your hands. We partner with top manufacturers to offer the latest technology at competitive prices.</p>
+        <p>Our mission is simple: make premium technology accessible to everyone, backed by world-class customer support.</p>
+        <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap">
+          <button class="btn-primary" onclick="showPage('phones')">Shop Now</button>
+          <button class="btn-outline" onclick="showPage('login')">Join Us</button>
+        </div>
+      </div>
+      <div class="about-visual">📱</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Phone Models</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Customer Support</div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Global Shipping</h3>
+        <p>We ship to over 50 countries worldwide with express and standard delivery options.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">♻️</div>
+        <h3>Trade-In Program</h3>
+        <p>Get credit for your old device and upgrade to the latest model at a reduced price.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>Repair Services</h3>
+        <p>Certified technicians available for screen replacements, battery swaps, and more.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
